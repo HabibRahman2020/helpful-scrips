@@ -1,0 +1,12 @@
+```
+#!/bin/bash
+
+# Display a pop-up message to confirm the action
+osascript -e 'tell app "System Events" to display dialog "Are you sure you want to empty the Trash?" buttons {"Cancel", "Empty Trash"} default button "Cancel" cancel button "Cancel" with title "Empty Trash" with icon caution' >/dev/null 2>&1
+
+# If the user selects "Empty Trash", empty the trash
+if [ $? -eq 0 ]; then
+rm -rf ~/.Trash/*
+osascript -e 'display notification "Trash has been emptied." with title "Empty Trash"' >/dev/null 2>&1
+fi
+```
