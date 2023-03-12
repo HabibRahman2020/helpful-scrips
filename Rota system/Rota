@@ -1,0 +1,30 @@
+```
+#!/bin/bash
+
+# Names of users
+users=("Jay" "Bob" "Lucy "Me" "Mo" "Emily" "Habib")
+
+# Get the day of the week (1 = Monday, 7 = Sunday)
+day=$(date +%u)
+
+# Determine which user is on rota for the current day
+if [ $day -eq 1 ]; then
+user=${users[0]}
+elif [ $day -eq 2 ]; then
+user=${users[1]}
+elif [ $day -eq 3 ]; then
+user=${users[2]}
+elif [ $day -eq 4 ]; then
+user=${users[3]}
+elif [ $day -eq 5 ]; then
+user=${users[4]}
+elif [ $day -eq 6 ]; then
+user=${users[5]}
+else
+user=${users[6]}
+fi
+
+# Display a pop-up message with the name of the user on rota
+osascript -e 'display notification "'"${user}"' is on rota today."'
+
+```
