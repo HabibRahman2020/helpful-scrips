@@ -1,0 +1,13 @@
+```
+#!/bin/bash
+
+# Check for updates
+softwareupdate -l > /tmp/updates.txt
+
+# Check if any updates are available
+if grep -q "No new software available." /tmp/updates.txt; then
+osascript -e 'display notification "Your Mac is up to date!" with title "Software Update"'
+else
+osascript -e 'display dialog "An OS update is available! Please go to System Preferences > Software Update to install it." with title "Software Update" buttons {"OK"} default button 1'
+fi
+```
