@@ -1,0 +1,24 @@
+```
+#!/bin/bash
+# Get all device logs
+log_file=~/Desktop/device_logs.txt
+syslog -F '$Time $Message' > $log_file
+# Check for failed applications or start-up errors
+grep -E '^(.*):.*\[(.*)\]: (.*failed.*|.*error.*)$' $log_file
+# Check MDM enrollment status
+enrollment_status=$(profiles status -type enrollment | grep 'MDM enrollment')
+if [[ "$enrollment_status" == *"SUCCEEDED"* ]]; then
+  echo "MDM enrollment succeeded."
+elif [[ "$enrollment_status" == *"FAILED"* ]]; then
+  echo "MDM enrollment failed at:"
+  profiles status -type enrollment | grep 'Last Check-in'
+fi
+# Output data to desktop
+report_file=~/Desktop/report.txt
+echo "Device Logs:" > $report_file
+cat $log_file >> $report_file
+echo -e "\nMDM Enrollment Status:" >> $report_file
+echo "$enrollment_status" >> $report_file
+# Open report on desktop
+open $report_file
+```
