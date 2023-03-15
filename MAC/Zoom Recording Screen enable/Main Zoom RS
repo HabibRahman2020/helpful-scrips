@@ -1,0 +1,26 @@
+```
+#!/bin/bash
+
+# Guide the user to enable Zoom screen recording
+
+# Open System Preferences
+echo "Opening System Preferences..."
+open /Applications/System\ Preferences.app
+
+# Navigate to Security & Privacy > Screen Recording
+echo "Navigating to Security & Privacy > Screen Recording..."
+osascript -e 'tell application "System Events" to tell process "System Preferences" to keystroke "," using command down'
+sleep 1
+osascript -e 'tell application "System Events" to tell process "Security & Privacy" to click button 1 of table 1 of scroll area 1 of group 1 of window 1'
+sleep 1
+osascript -e 'tell application "System Events" to tell process "Security & Privacy" to click radio button "Screen Recording" of tab group 1 of window 1'
+sleep 1
+
+# Enable Zoom
+echo "Enabling Zoom screen recording..."
+osascript -e 'tell application "System Events" to tell process "Security & Privacy" to tell outline 1 of scroll area 2 of group 1 of window 1 to tell row 1 to if selected is false then click checkbox 1'
+
+# Exit
+echo "Done!"
+exit
+```
