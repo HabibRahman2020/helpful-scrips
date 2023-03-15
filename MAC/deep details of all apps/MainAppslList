@@ -1,0 +1,34 @@
+```
+#!/bin/bash
+
+# Get list of all installed applications
+apps=$(ls /Applications)
+echo "List of all installed applications:"
+echo $apps
+echo ""
+
+# Get details of each application
+for app in $apps
+do
+    echo "Details of application $app:"
+    mdls -name kMDItemVersion /Applications/"$app"
+    mdls -name kMDItemKind /Applications/"$app"
+    echo ""
+done
+
+# Create a report on desktop
+cd ~/Desktop
+echo "List of all installed applications:" > app_report.txt
+echo $apps >> app_report.txt
+echo "" >> app_report.txt
+
+for app in $apps
+do
+    echo "Details of application $app:" >> app_report.txt
+    mdls -name kMDItemVersion /Applications/"$app" >> app_report.txt
+    mdls -name kMDItemKind /Applications/"$app" >> app_report.txt
+    echo "" >> app_report.txt
+done
+
+echo "Report created on Desktop as app_report.txt"
+```
