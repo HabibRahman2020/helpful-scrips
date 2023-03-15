@@ -1,0 +1,37 @@
+```
+#!/bin/bash
+
+# Get battery count
+battery_count=$(system_profiler SPPowerDataType | grep "Cycle Count" | awk '{print $3}')
+
+
+# Get serial number and logged in user
+serial_number=$(system_profiler SPHardwareDataType | grep "Serial Number" | awk '{print $4}')
+logged_in_user=$(ls -l /dev/console | awk '{print $3}')
+
+# Get last restart time
+last_restart=$(who -b | awk '{print $3, $4}')
+
+# Check overall health of Mac
+health_check=$(system_profiler SPHardwareDataType SPMemoryDataType SPStorageDataType SPSoftwareDataType)
+
+# Check if anything has failed
+if system_profiler SPHardwareDataType | grep -q "Failed"; then
+echo "Something has failed"
+else
+echo "Nothing has failed"
+fi
+
+# Get device health
+device_health=$(system_profiler SPHardwareDataType | grep -o 'Hardware ECC Enabled: [a-zA-Z]*' | awk '{print $NF}')
+
+# Create text file with information on desktop
+echo "Battery Count: $battery_count" > ~/Desktop/health_check.txt
+echo "JAMF Managed: $jamf_managed" >> ~/Desktop/health_check.txt
+echo "Serial Number: $serial_number" >> ~/Desktop/health_check.txt
+echo "Logged In User: $logged_in_user" >> ~/Desktop/health_check.txt
+echo "Last Restart: $last_restart" >> ~/Desktop/health_check.txt
+echo "" >> ~/Desktop/health_check.txt
+echo "Overall Health Check:" >> ~/Desktop/health_check.txt
+echo "$health_check" >> ~/Desktop/health_check.txt
+```
