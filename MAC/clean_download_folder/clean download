@@ -1,0 +1,21 @@
+```bash
+#!/bin/bash
+
+# Count the number of files in the download folder
+count=$(ls ~/Downloads | wc -l)
+
+# Show a dialog box with the count and wait for user confirmation
+osascript -e 'tell app "System Events" to display dialog "You have '$count' files in your Downloads folder." buttons {"OK"} default button "OK"'
+
+# Ask for confirmation before proceeding
+osascript -e 'tell app "System Events" to display dialog "Are you sure you want to move all the files in your Downloads folder to the trash?" buttons {"Cancel", "OK"} default button "Cancel" cancel button "Cancel"'
+
+# Check if the user clicked the OK button
+if [ $? -eq 0 ]; then
+  # Move all files in the download folder to the trash
+  mv ~/Downloads/* ~/.Trash/
+
+  # Show a dialog box with a message and wait for user confirmation
+  osascript -e 'tell app "System Events" to display dialog "All the files in your Downloads folder have been moved to the trash." buttons {"OK"} default button "OK"'
+fi
+```
