@@ -1,14 +1,22 @@
-```
 #!/bin/bash
 
-# Set the source and destination directories
-src_dir="$HOME/Desktop"
-dest_dir="$HOME/Desktop/MyFolder"
+# Set the path to the desktop directory
+desktop_dir="$HOME/Desktop"
 
-# Create a subfolder with today's date
-sub_dir="$(date +%d-%m-%y)"
-mkdir -p "$dest_dir/$sub_dir"
+# Set the name of the new directory to create
+new_dir_name="Desktop_Cleaned"
 
-# Move all files and images from the source directory to the destination directory
-find "$src_dir" -maxdepth 1 \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" -o -type f \) -exec mv {} "$dest_dir" \;
-```
+# Create the new directory if it doesn't exist
+if [ ! -d "$desktop_dir/$new_dir_name" ]; then
+    mkdir "$desktop_dir/$new_dir_name"
+fi
+
+# Create a subdirectory in the new directory with the current date
+sub_dir_name=$(date "+%Y-%m-%d")
+mkdir "$desktop_dir/$new_dir_name/$sub_dir_name"
+
+# Move all files and images from the desktop to the new subdirectory
+find "$desktop_dir" -maxdepth 1 -type f -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" | xargs -I '{}' mv {} "$desktop_dir/$new_dir_name/$sub_dir_name/"
+
+# Print a message indicating the script has finished
+echo "Desktop cleaned and files moved to $desktop_dir/$new_dir_name/$sub_dir_name"
