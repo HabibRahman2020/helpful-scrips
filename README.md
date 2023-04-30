@@ -18,3 +18,4 @@ Make the script executable by changing the file permissions. Run the following c
 
     chmod +x your-script
 
+    update: readme
