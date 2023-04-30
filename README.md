@@ -16,6 +16,4 @@ Add the following line to the very top of your bash script, before any of the co
 
 Make the script executable by changing the file permissions. Run the following command using a Terminal application:
 
-    chmod +x your-script
-
-    update: readme
+    chmod +x your-scrip
