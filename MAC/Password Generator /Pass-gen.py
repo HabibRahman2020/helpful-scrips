@@ -1,6 +1,6 @@
 import random
 import string
-import pyperclip
+import paperclip
 import tkinter as tk
 
 def generate_password():
