@@ -1,30 +1,22 @@
-```
 #!/bin/bash
 
-# Names of users
-users=("Jay" "Bob" "Lucy "Me" "Mo" "Emily" "Habib")
+# Define the rota data directly in the script
+rota="
+03/05/23 name: empty Tee micro
+04/05/23 name: empty Vic Bey
+05/05/23 name: empty Test test
 
-# Get the day of the week (1 = Monday, 7 = Sunday)
-day=$(date +%u)
+"
 
-# Determine which user is on rota for the current day
-if [ $day -eq 1 ]; then
-user=${users[0]}
-elif [ $day -eq 2 ]; then
-user=${users[1]}
-elif [ $day -eq 3 ]; then
-user=${users[2]}
-elif [ $day -eq 4 ]; then
-user=${users[3]}
-elif [ $day -eq 5 ]; then
-user=${users[4]}
-elif [ $day -eq 6 ]; then
-user=${users[5]}
+# Get the current date
+current_date=$(date +"%d/%m/%y")
+
+# Parse the name of the user on call from the rota data
+on_call=$(awk -v today="$current_date" '$1 == today && $2 == "name:" {sub(/name: /, ""); print substr($0, index($0,$3))}' <<< "$rota")
+
+if [[ -n $on_call && $on_call != "empty" ]]; then
+    # Display the on-call user on the screen
+    osascript -e "display dialog \"$on_call, you are on call this week.\" buttons {\"OK\"} default button 1 with title \"On Call\""
 else
-user=${users[6]}
+    osascript -e "display dialog \"No on-call user found for today.\" buttons {\"OK\"} default button 1 with title \"On Call\""
 fi
-
-# Display a pop-up message with the name of the user on rota
-osascript -e 'display notification "'"${user}"' is on rota today."'
-
-```
