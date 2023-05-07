@@ -1,0 +1,23 @@
+```
+#!/bin/bash
+
+# Get the date and time of the last system restart
+last_restart=$(who -b | awk '{print $3, $4}')
+
+# Get the battery health information
+battery_health=$(system_profiler SPPowerDataType | grep "Condition" | awk '{print $2}')
+
+# Get the date and time of the last software update
+last_software_update=$(ls -l /var/db/softwareupdate/ | awk '{print $6, $7, $8}')
+
+# Create the report file on the desktop
+report_file=~/Desktop/system_report.txt
+
+# Write the system information to the report file
+echo "Last System Restart: $last_restart" > $report_file
+echo "Battery Health: $battery_health" >> $report_file
+echo "Last Software Update: $last_software_update" >> $report_file
+
+# Open the report file on the desktop in a human-readable format
+open -a TextEdit $report_file
+```
