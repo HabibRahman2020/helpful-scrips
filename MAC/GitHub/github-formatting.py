@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 
 
 def generate_table():
@@ -25,41 +26,49 @@ def generate_table():
 # Create the main window
 window = tk.Tk()
 window.title("GitHub Table Generator")
+window.geometry("400x300")  # Set window size
+
+# Center the window on the screen
+window.eval('tk::PlaceWindow . center')
+
+# Create a frame for better organization
+frame = ttk.Frame(window)
+frame.pack(pady=20)
 
 # Create labels and entries for user input
-ticket_label = tk.Label(window, text="Ticket:")
-ticket_label.grid(row=0, column=0)
-ticket_entry = tk.Entry(window)
-ticket_entry.grid(row=0, column=1)
+ticket_label = ttk.Label(frame, text="Ticket:")
+ticket_label.grid(row=0, column=0, padx=5, pady=5)
+ticket_entry = ttk.Entry(frame)
+ticket_entry.grid(row=0, column=1, padx=5, pady=5)
 
-reason_label = tk.Label(window, text="Reason:")
-reason_label.grid(row=1, column=0)
-reason_entry = tk.Entry(window)
-reason_entry.grid(row=1, column=1)
+reason_label = ttk.Label(frame, text="Reason:")
+reason_label.grid(row=1, column=0, padx=5, pady=5)
+reason_entry = ttk.Entry(frame)
+reason_entry.grid(row=1, column=1, padx=5, pady=5)
 
-approve_label = tk.Label(window, text="Approve:")
-approve_label.grid(row=2, column=0)
-approve_entry = tk.Entry(window)
-approve_entry.grid(row=2, column=1)
+approve_label = ttk.Label(frame, text="Approve:")
+approve_label.grid(row=2, column=0, padx=5, pady=5)
+approve_entry = ttk.Entry(frame)
+approve_entry.grid(row=2, column=1, padx=5, pady=5)
 
-email_label = tk.Label(window, text="Email:")
-email_label.grid(row=3, column=0)
-email_entry = tk.Entry(window)
-email_entry.grid(row=3, column=1)
+email_label = ttk.Label(frame, text="Email:")
+email_label.grid(row=3, column=0, padx=5, pady=5)
+email_entry = ttk.Entry(frame)
+email_entry.grid(row=3, column=1, padx=5, pady=5)
 
-image_label = tk.Label(window, text="Image:")
-image_label.grid(row=4, column=0)
-image_entry = tk.Entry(window)
-image_entry.grid(row=4, column=1)
+image_label = ttk.Label(frame, text="Image:")
+image_label.grid(row=4, column=0, padx=5, pady=5)
+image_entry = ttk.Entry(frame)
+image_entry.grid(row=4, column=1, padx=5, pady=5)
 
 # Create a button to generate the table
-generate_button = tk.Button(
+generate_button = ttk.Button(
     window, text="Generate Table", command=generate_table)
-generate_button.grid(row=5, columnspan=2)
+generate_button.pack(pady=10)
 
 # Create a label to display the result
-result_label = tk.Label(window, text="")
-result_label.grid(row=6, columnspan=2)
+result_label = ttk.Label(window, text="")
+result_label.pack()
 
 # Start the GUI event loop
 window.mainloop()
