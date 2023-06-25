@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Define the name of the Pod
+read -p "Enter the name of the Pod: " pod_name
+
+# Define the container name
+read -p "Enter the container name: " container_name
+
+# Define the image for the container
+read -p "Enter the container image: " container_image
+
+# Define the container port
+read -p "Enter the container port: " container_port
+
+# Create the Pod YAML file
+cat <<EOF >pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: $pod_name
+spec:
+  containers:
+    - name: $container_name
+      image: $container_image
+      ports:
+        - containerPort: $container_port
+EOF
+
+echo "Pod YAML template created successfully!"
+
+# Provide instructions and examples
+echo "
+INSTRUCTIONS:
+1. Fill in the following details:
+   - pod_name: The name you want to give to the Pod.
+   - container_name: The name you want to give to the container.
+   - container_image: The image to use for the container.
+   - container_port: The port number to expose from the container.
+
+2. Save the changes and exit the script.
+
+EXAMPLES:
+- pod_name: my-pod
+- container_name: my-container
+- container_image: nginx:latest
+- container_port: 80
+"
