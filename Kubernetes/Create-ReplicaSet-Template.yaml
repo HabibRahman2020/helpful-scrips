@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Define the name of the ReplicaSet
+read -p "Enter the name of the ReplicaSet: " rs_name
+
+# Define the number of replicas
+read -p "Enter the number of replicas: " replicas
+
+# Define the selector
+read -p "Enter the selector: " selector
+
+# Define the template spec
+read -p "Enter the template spec: " template_spec
+
+# Create the ReplicaSet YAML file
+cat <<EOF >replicaset.yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: $rs_name
+spec:
+  replicas: $replicas
+  selector:
+    matchLabels:
+      app: $selector
+  template:
+    metadata:
+      labels:
+        app: $selector
+    spec:
+      $template_spec
+EOF
+
+echo "ReplicaSet YAML template created successfully!"
+
+# Provide instructions and examples
+echo "
+INSTRUCTIONS:
+1. Fill in the following details:
+   - rs_name: The name you want to give to the ReplicaSet.
+   - replicas: The number of replicas you want to create.
+   - selector: The selector to match the Pods controlled by the ReplicaSet.
+   - template_spec: The specifications for the Pod template.
+
+2. Save the changes and exit the script.
+
+EXAMPLES:
+- rs_name: my-replicaset
+- replicas: 3
+- selector: my-app
+- template_spec: |
+    containers:
+    - name: my-container
+      image: nginx:latest
+      ports:
+      - containerPort: 80
+        protocol: TCP
+"
+
