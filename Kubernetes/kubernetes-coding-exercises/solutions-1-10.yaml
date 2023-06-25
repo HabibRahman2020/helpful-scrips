@@ -1,0 +1,256 @@
+Exercise 1: 
+
+```yaml
+# nginx-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+  ports:
+    - containerPort: 80
+---
+# nginx-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  type: NodePort
+  selector:
+    app: nginx-pod
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080
+```
+
+Explanation: The first part of the solution is a Pod manifest that deploys an NGINX pod with a single container. The second part is a Service manifest that exposes the pod using a NodePort service. The NodePort service makes the pod accessible on port 30080 on each node in the cluster.
+
+Exercise 2:
+
+```yaml
+# my-app-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app-container
+          image: nginx
+```
+
+Explanation: This solution creates a Deployment resource named "my-app" with three replicas. The deployment selects pods with the label "app: my-app" and uses the NGINX container image.
+
+Exercise 3:
+
+```yaml
+# my-config-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config
+data:
+  DB_HOST: localhost
+  DB_PORT: "3306"
+```
+
+Explanation: This solution creates a ConfigMap named "my-config" with two key-value pairs: "DB_HOST" with the value "localhost" and "DB_PORT" with the value "3306". The values are stored as strings.
+
+Exercise 4:
+
+```yaml
+# my-pv-pvc.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-pv
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+```
+
+Explanation: This solution creates a PersistentVolume (PV) named "my-pv" with a storage class of "standard", access mode "ReadWriteOnce", and a capacity of 1Gi. It uses a hostPath volume type for demonstration purposes. The PersistentVolumeClaim (PVC) named "my-pvc" requests a storage capacity of 1Gi from the PV.
+
+Exercise 5:
+
+```yaml
+# my-app-hpa.yaml
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-app-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-app
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 70
+```
+
+Explanation: This solution creates a HorizontalPodAutoscaler (HPA) named "my-app-hpa" for the deployment named "my-app". It
+
+ sets the minimum number of replicas to 2 and the maximum to 5. The autoscaling is based on CPU utilization, with a target average utilization of 70%.
+
+Exercise 6:
+
+```yaml
+# time-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: time-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: busybox-container
+          image: busybox
+          command: ["sh", "-c", "date"]
+      restartPolicy: Never
+  backoffLimit: 4
+```
+
+Explanation: This solution creates a Job named "time-job" that runs a container using the "busybox" image. The container executes the command "date" to print the current time. The Job has a restart policy of "Never" and a backoff limit of 4 (number of retries before considering it failed).
+
+Exercise 7:
+
+```yaml
+# backup-cronjob.yaml
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: backup-cronjob
+spec:
+  schedule: "0 1 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: backup-container
+              image: backup-image
+          restartPolicy: OnFailure
+```
+
+Explanation: This solution creates a CronJob named "backup-cronjob" that runs a container using the "backup-image" image. The cron schedule is set to run the job every day at 1 AM. The restart policy is set to "OnFailure".
+
+Exercise 8:
+
+```yaml
+# my-service-account.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: my-service-account
+---
+# my-service-account-rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: my-service-account-rolebinding
+subjects:
+  - kind: ServiceAccount
+    name: my-service-account
+roleRef:
+  kind: ClusterRole
+  name: view
+  apiGroup: rbac.authorization.k8s.io
+```
+
+Explanation: This solution creates a ServiceAccount named "my-service-account" and a RoleBinding named "my-service-account-rolebinding". The RoleBinding grants the ServiceAccount permission to view pods in the "default" namespace by using the built-in ClusterRole "view".
+
+Exercise 9:
+
+```yaml
+# network-policy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: frontend
+      ports:
+        - protocol: TCP
+          port: 80
+```
+
+Explanation: This solution creates a NetworkPolicy named "allow-frontend-policy" that allows incoming traffic only from pods with the label "app: frontend" on port 80. The policy also allows pods with the label "app: frontend" to communicate with each other.
+
+Exercise 10:
+
+```yaml
+# my-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+spec:
+  rules:
+    - host: example.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: service-a
+                port:
+                  number: 80
+          - path: /admin
+            pathType: Prefix
+            backend:
+              service:
+                name: service-b
+                port:
+                  number: 80
+```
+
+Explanation: This solution
+
+ creates an Ingress resource named "my-ingress" that routes traffic based on the path. Requests to "example.com/api" will be directed to "service-a" on port 80, while requests to "example.com/admin" will be directed to "service-b" on port 80.
+
+Please note that you should apply these YAML files using the `kubectl apply -f <filename>` command in a Kubernetes cluster to create the corresponding resources.

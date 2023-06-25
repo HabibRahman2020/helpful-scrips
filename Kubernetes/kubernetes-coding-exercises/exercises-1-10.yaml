@@ -1,0 +1,29 @@
+Exercise 1:
+Write a Kubernetes manifest file to deploy a simple NGINX pod with one container and expose it using a NodePort service.
+
+Exercise 2:
+Create a Kubernetes deployment for a stateless web application called "my-app" using the "nginx" container image with three replicas.
+
+Exercise 3:
+Write a Kubernetes YAML file to create a ConfigMap named "my-config" with two key-value pairs: "DB_HOST" with the value "localhost" and "DB_PORT" with the value "3306".
+
+Exercise 4:
+Create a Kubernetes PersistentVolume and PersistentVolumeClaim to enable storage for an application. Use the following specifications: Storage class: "standard", Access mode: "ReadWriteOnce", Size: "1Gi".
+
+Exercise 5:
+Write a Kubernetes YAML file to create a Horizontal Pod Autoscaler for a deployment named "my-app" with a minimum of 2 replicas, a maximum of 5 replicas, and CPU utilization target of 70%.
+
+Exercise 6:
+Implement a Kubernetes Job that runs a container using the "busybox" image, which prints the current time and then exits.
+
+Exercise 7:
+Write a Kubernetes YAML file to create a CronJob that runs a container using the "backup-image" image every day at 1 AM.
+
+Exercise 8:
+Create a Kubernetes ServiceAccount named "my-service-account" with permissions to list pods in the "default" namespace.
+
+Exercise 9:
+Write a Kubernetes YAML file to create a NetworkPolicy that allows incoming traffic only from pods with the label "app=frontend" and port 80.
+
+Exercise 10:
+Implement a Kubernetes Ingress resource that routes traffic to two different services: "service-a" on path "/api" and "service-b" on path "/admin".
