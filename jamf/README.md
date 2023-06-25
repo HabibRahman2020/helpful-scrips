@@ -73,9 +73,7 @@ This script displays a cheat sheet with helpful tips and tricks for macOS users.
 
 To manage this script using JAMF Pro, follow these steps:
 
-1. Log in to your JAM
-
-F Pro admin console.
+1. Log in to your JAMF Pro admin console.
 2. Navigate to "Scripts" in the sidebar.
 3. Click on "New" and provide a name for the script (e.g., Tips and Tricks Cheat Sheet).
 4. Copy the contents of `cheat_sheet.sh` and paste it into the script editor.
