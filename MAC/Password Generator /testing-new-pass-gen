@@ -1,0 +1,13 @@
+import random
+
+lower = "abcdefghkmnpqrstuvwxyz"  # 
+upper = "ABCDEFGHKMNPQRSTUVWXYZ"  # 
+number = "123456789"
+sysmobls = "+!@£$%?/"
+
+string = lower + upper + number + sysmobls  # Combine all character sets
+
+length = 16  # Set the desired length of the password
+# Generate a random password using the characters in "string"
+password = "".join(random.sample(string, length))
+print("This is your new password: " + password)  # Print the generated password
