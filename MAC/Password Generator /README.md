@@ -1,4 +1,3 @@
-```markdown
 # Random Password Generator
 
 This is a simple Python script that generates random passwords based on user requirements. It uses secure random number generation to ensure the passwords are unpredictable and secure.
@@ -15,7 +14,7 @@ This is a simple Python script that generates random passwords based on user req
 
    ```shell
    python password_generator.py
-   ```
+
 
 5. Follow the on-screen instructions to customize the password generation:
 
