@@ -1,5 +1,5 @@
 ![enter image description here](https://www.simplilearn.com/ice9/free_resources_article_thumb/Advantages_and_Disadvantages_of_artificial_intelligence.jpg)
-
+ 
 # Helpful Scripts
 
 Helpful scripts are small programs or pieces of code designed to automate tasks, improve productivity, or enhance the functionality of existing software. These scripts can be written in various programming languages and serve a wide range of purposes, including data analysis and web development.
